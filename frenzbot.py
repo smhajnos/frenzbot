@@ -7,7 +7,7 @@ Created on Fri Feb  3 19:59:47 2023
 
 """
 URL
-https://discord.com/developers/applications/1062515699446194226/oauth2/url-generator
+https://discord.com/api/oauth2/authorize?client_id=1062515699446194226&permissions=140996103232&scope=bot
 """
 
 
@@ -20,10 +20,10 @@ import datetime
 import sqlite3
 
 
-frenz_server = 1071226254113636383
+frenz_server = 1056781038975725629
 logs_channel = 1071237902769586306
 fb_color = 0xc16950
-staff_channel = 1071831350560182292 #console in test server
+staff_channel = 1072294882468704361 #console in frenz server
 
 
 dataWarehouse = sqlite3.connect("datawarehouse.db")
