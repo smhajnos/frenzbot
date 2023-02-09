@@ -21,9 +21,11 @@ import sqlite3
 
 
 frenz_server = 1056781038975725629
+test_server = 1071226254113636383
+servers = [frenz_server, test_server]
 logs_channel = 1071237902769586306
 fb_color = 0xc16950
-staff_channel = 1072294882468704361 #console in frenz server
+staff_channels = [1072294882468704361,1071831350560182292] #console in frenz server or test server
 
 
 dataWarehouse = sqlite3.connect("datawarehouse.db")
@@ -43,7 +45,7 @@ def commit():
     #backup to cloud?
 
 async def staff_command(ctx):
-    ctx.channel.id = staff_channel
+    ctx.channel.id in staff_channels
     
     
     
@@ -65,7 +67,7 @@ def setconfig(param, val):
     cursor.execute("INSERT INTO config (param, val) VALUES (?,?)",(param,val,))
     commit()
     
-@bot.slash_command(name="ping",description="Check if the bot is working", guild_ids=[frenz_server])
+@bot.slash_command(name="ping",description="Check if the bot is working", guild_ids=servers)
 async def ping(ctx):
     await ctx.send("Pong!")
 
@@ -75,7 +77,7 @@ async def ping(ctx):
 
 
 
-@bot.slash_command(name="addrr",description="Add reaction role",guild_ids=[frenz_server])
+@bot.slash_command(name="addrr",description="Add reaction role",guild_ids=servers)
 @commands.check(staff_command)
 async def addrr(ctx,emoji, role,desc):
     cursor.execute("INSERT INTO reactroles (emoji, role, desc) VALUES (?,?,?)",(emoji,role,desc))
@@ -83,7 +85,7 @@ async def addrr(ctx,emoji, role,desc):
     await ctx.send("Done! Don't forget to use `/updaterr` to update the message!")
     
 
-@bot.slash_command(name="updaterr",description="Update reaction role message",guild_ids=[frenz_server])
+@bot.slash_command(name="updaterr",description="Update reaction role message",guild_ids=servers)
 @commands.check(staff_command)    
 async def updaterr(ctx):
     rrhold = True
@@ -104,7 +106,7 @@ async def updaterr(ctx):
     await ctx.send("Done!")
     
 
-@bot.slash_command(name="initrr",description="Initiate reaction role. This will reset reaction roles!",guild_ids=[frenz_server])
+@bot.slash_command(name="initrr",description="Initiate reaction role. This will reset reaction roles!",guild_ids=servers)
 @commands.check(staff_command)
 async def initrr(ctx,channel,desc):
     rrhold = True
